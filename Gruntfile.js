@@ -24,7 +24,7 @@ module.exports = function(grunt) {
                     insertRequire: ['src/vmanip']
                 }
             },
-            devel: {
+            debug: {
                 options: {
                     mainConfigFile: 'src/requirejs.config.js',
                     out: 'dist/<%= pkg.name %>.debug.js',
@@ -70,13 +70,21 @@ module.exports = function(grunt) {
                     dest: '<%= appdir %>/scripts/vendor/'
                 }]
             },
+        },
+
+        watch: {
+            scripts: {
+                files: 'src/*.js',
+                tasks: ['debug']
+            }
         }
     });
 
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-contrib-qunit');
+    grunt.loadNpmTasks('grunt-contrib-watch');
 
     grunt.registerTask('default', 'requirejs:dist');
     grunt.registerTask('build', 'requirejs:dist');
-    grunt.registerTask('devel', ['jshint', 'requirejs:devel', 'copy']);
+    grunt.registerTask('debug', ['jshint', 'requirejs:debug', 'copy']);
 };
