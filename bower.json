@@ -1,0 +1,15 @@
+{
+  "name": "vmanip-core",
+  "version": "0.2",
+  "dependencies": {
+    "jquery": "~1.10.0",
+    "requirejs": "~2.1.5",
+    "backbone-amd": "~1.0.0",
+    "underscore-amd": "~1.4.4",
+    "backbone.marionette": "~1.1.0",
+    "backbone.wreqr": "~0.2.0",
+    "backbone.babysitter": "~0.0.6",
+  },
+  "devDependencies": {
+  }
+}
