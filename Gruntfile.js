@@ -3,7 +3,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-copy');
 
     grunt.initConfig({
-        appdir: '../vmanip-app/app',
+        installdir: '../vmanip-app-ember/vendor/vmanip',
         pkg: grunt.file.readJSON('package.json'),
 
         qunit: {
@@ -67,7 +67,7 @@ module.exports = function(grunt) {
                     expand: true,
                     flatten: true,
                     src: ['dist/<%= pkg.name %>.min.js', 'dist/<%= pkg.name %>.debug.js'],
-                    dest: '<%= appdir %>/scripts/vendor/'
+                    dest: '<%= installdir %>'
                 }]
             },
         },
