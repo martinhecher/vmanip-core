@@ -48,6 +48,10 @@ define(function() {
 		}
 	};
 
+	VMANIP.Runtime.prototype.showModules = function(id) {
+		console.log('[Runtime] showing module "' + id + '"');
+	};
+
 	/**
 	 * A Module is an entity that visualizes a Context. The object is used as
 	 * a base class that is implemented by a derived object (e.g. the VGV module)
