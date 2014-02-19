@@ -1,15 +1,22 @@
 {
   "name": "vmanip-core",
-  "version": "0.2",
+  "version": "0.2.0",
+  "homepage": "https://github.com/v-manip/RectangularBoxViewer",
+  "authors": [
+    "Martin Hecher <martin.hecher@fraunhofer.at>"
+  ],
+  "description": "Core framework for the VMANIP project",
+  "main": "src/vmanip.js",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "vendor",
+    "test",
+    "tests"
+  ],
   "dependencies": {
-    "jquery": "~1.10.0",
-    "requirejs": "~2.1.5",
-    "backbone-amd": "~1.0.0",
-    "underscore-amd": "~1.4.4",
-    "backbone.marionette": "~1.1.0",
-    "backbone.wreqr": "~0.2.0",
-    "backbone.babysitter": "~0.0.6",
-  },
-  "devDependencies": {
+    "backbone": "~1.1.1",
+    "backbone.wreqr": "~1.0.0"
   }
 }

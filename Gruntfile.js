@@ -1,9 +1,6 @@
 module.exports = function(grunt) {
-    grunt.loadNpmTasks('grunt-requirejs');
-    grunt.loadNpmTasks('grunt-contrib-copy');
-
     grunt.initConfig({
-        installdir: '../vmanip-app-ember/vendor/vmanip',
+        installdir: '../WebClient-Framework/app/scripts/vendor/vmanip-core',
         pkg: grunt.file.readJSON('package.json'),
 
         qunit: {
@@ -17,25 +14,26 @@ module.exports = function(grunt) {
                     out: 'dist/<%= pkg.name %>.min.js',
                     almond: true,
                     optimize: 'uglify2',
-                    baseUrl: './',
+                    baseUrl: './src',
                     useStrict: true,
                     wrap: true,
-                    include: ['src/vmanip'],
-                    insertRequire: ['src/vmanip']
+                    include: ['vmanip'],
+                    insertRequire: ['vmanip']
                 }
             },
-            debug: {
+            devel: {
                 options: {
                     mainConfigFile: 'src/requirejs.config.js',
                     out: 'dist/<%= pkg.name %>.debug.js',
                     almond: true,
                     optimize: 'none',
-                    baseUrl: './',
+                    baseUrl: './src',
                     useStrict: true,
                     wrap: true,
-                    include: ['src/vmanip'],
-                    insertRequire: ['src/vmanip']
+                    include: ['vmanip'],
+                    insertRequire: ['vmanip']
                 }
+            // TODO: add 'amd' config!
             }
         },
 
@@ -61,12 +59,33 @@ module.exports = function(grunt) {
             files: ['src/*.js']
         },
 
+        // Note: 'concat' is currently used only for vmanip-core dependencies:
+        concat: {
+            options: {
+                separator: '\n'
+            },
+            dist: {
+                files: {
+                    // 'dist/<%= pkg.name %>.debug.js': ['src/viewer.js', 'src/**/*.js'],
+                    'dist/<%= pkg.name %>-deps.debug.js': [
+                        'vendor/underscore/underscore.js',
+                        'vendor/backbone/backbone.js',
+                        'vendor/backbone.wreqr/lib/backbone.wreqr.js'
+                    ]
+                }
+            }
+        },
+
         copy: {
             main: {
                 files: [{
                     expand: true,
                     flatten: true,
-                    src: ['dist/<%= pkg.name %>.min.js', 'dist/<%= pkg.name %>.debug.js'],
+                    src: [
+                        'dist/<%= pkg.name %>.min.js', 
+                        'dist/<%= pkg.name %>-deps.debug.js',
+                        'dist/<%= pkg.name %>.debug.js'
+                    ],
                     dest: '<%= installdir %>'
                 }]
             },
@@ -74,17 +93,20 @@ module.exports = function(grunt) {
 
         watch: {
             scripts: {
-                files: 'src/*.js',
-                tasks: ['debug']
+                files: 'src/**/*.js',
+                tasks: ['devel']
             }
         }
     });
 
+    grunt.loadNpmTasks('grunt-requirejs');
+    grunt.loadNpmTasks('grunt-contrib-concat');
+    grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-contrib-qunit');
     grunt.loadNpmTasks('grunt-contrib-watch');
 
     grunt.registerTask('default', 'requirejs:dist');
     grunt.registerTask('build', 'requirejs:dist');
-    grunt.registerTask('debug', ['jshint', 'requirejs:debug', 'copy']);
+    grunt.registerTask('devel', ['jshint', 'requirejs:devel', 'concat', 'copy']);
 };

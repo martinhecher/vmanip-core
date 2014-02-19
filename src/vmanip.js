@@ -1,5 +1,16 @@
-define(function() {
+define([
+	'layers/layer-base',
+	'layers/layer-wms',
+	'layers/layer-wcs'
+], function(BaseLayer, WMSLayer, WCSLayer) {
+
 	var VMANIP = {};
+	
+	VMANIP.Layers = {};
+	VMANIP.Layers.Base = BaseLayer;
+	VMANIP.Layers.WMS = WMSLayer;
+	VMANIP.Layers.WCS = WCSLayer;
+
 	VMANIP.Modules = {};
 
 	/**
@@ -62,12 +73,12 @@ define(function() {
 	 *
 	 * @see Runtime, Context
 	 */
-	VMANIP.Module = function(opts) {
+	VMANIP.Modules.Base = function(opts) {
 		this.id = opts.id;
 		console.log('[Module] "' + this.id + '" initialized');
 	};
 
-	VMANIP.Module.prototype.setContext = function(context) {
+	VMANIP.Modules.Base.prototype.setContext = function(context) {
 		this.context = context;
 		console.log('[Module] set context "' + this.context.id + '" on "' + this.id + '"');
 	};
